@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Polling Unit Result</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Additional styling specific to your application */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Add Polling Unit Result</h1>
+
+        <form method="post" action="{% url 'poll_add' %}" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="polling_unit_number" class="form-label">Polling Unit Number:</label>
+                <input type="text" name="polling_unit_number" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="ward_id" class="form-label">Ward ID:</label>
+                <input type="number" name="ward_id" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="party_abbreviation" class="form-label">Party Abbreviation:</label>
+                <input type="text" name="party_abbreviation" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="party_score" class="form-label">Party Score:</label>
+                <input type="number" name="party_score" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="entered_by_user" class="form-label">Entered By User:</label>
+                <input type="text" name="entered_by_user" class="form-control" value="Admin" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Result</button>
+        </form>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

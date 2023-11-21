@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LGA Total Result</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* Additional styling specific to your application */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">LGA Total Result</h1>
+
+        <h2 class="mt-4">Select a Local Government</h2>
+        <form method="get" action="{% url 'lga_total' %}" class="mb-4">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="lga_id" class="form-label">Local Government:</label>
+                    <select name="lga_id" id="lga_id" class="form-select">
+                        <option value="" selected disabled>Select a local government</option>
+                        {% for lga in lgas %}
+                            <option value="{{ lga.uniqueid }}">{{ lga.lga_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary mt-2">View Total Result</button>
+                </div>
+            </div>
+        </form>
+
+        {% if selected_lga %}
+            <h2 class="mt-4">Total Result for {{ selected_lga.lga_name }}</h2>
+            {% if total_results %}
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Party Abbreviation</th>
+                            <th scope="col">Total Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in total_results %}
+                            <tr>
+                                <td>{{ result.party_abbreviation }}</td>
+                                <td>{{ result.total_score }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="mt-3">No results found for the selected LGA.</p>
+            {% endif %}
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-4">Back to Polling Unit List</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
